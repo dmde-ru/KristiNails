@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Петровская Кристина | Мастер ногтевого сервиса</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+      color: #eaeaea;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px 50px;
+    }
+
+    header h1 {
+      font-weight: 400;
+      font-size: 2em;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      color: #aaa;
+    }
+
+    .divider {
+      width: 80px;
+      height: 1px;
+      background: #444;
+      margin: 25px auto 40px;
+    }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 20px 60px;
+    }
+
+    h2 {
+      font-weight: 400;
+      border-left: 3px solid #777;
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+
+    .price-list {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px 25px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      padding: 10px 0;
+    }
+
+    .price-item:last-child {
+      border-bottom: none;
+    }
+
+    .extra {
+      margin-top: 25px;
+      color: #aaa;
+      font-size: 0.95em;
+    }
+
+    .contacts {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .contacts p {
+      margin: 8px 0;
+    }
+
+    .contact-links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 1px solid #444;
+      color: #eaeaea;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .contact-links a:hover {
+      background: #eaeaea;
+      color: #0a0a0a;
+      border-color: #eaeaea;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85em;
+      color: #777;
+      padding: 30px;
+      border-top: 1px solid #222;
+      background: #0a0a0a;
+    }
+
+    @media (max-width: 600px) {
+      .price-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .price-item span:last-child {
+        margin-top: 4px;
+        color: #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Петровская Кристина</h1>
+    <p>Мастер ногтевого сервиса</p>
+    <div class="divider"></div>
+  </header>
+
+  <section>
+    <h2>Прайс-лист</h2>
+    <div class="price-list">
+      <div class="price-item"><span>Маникюр</span><span>500 ₽</span></div>
+      <div class="price-item"><span>Маникюр + покрытие</span><span>1500 ₽</span></div>
+      <div class="price-item"><span>Чужое снятие</span><span>200 ₽</span></div>
+    </div>
+
+    <div class="extra">
+      <p>Возможен выезд на дом (обговаривается отдельно)</p>
+      <p>(микрорайон Мирный)</p>
+    </div>
+
+    <div class="contacts">
+      <h2>Контакты</h2>
+      <p>Телефон: <a href="tel:+79991778789" style="color:#eaeaea;">+7 999 177-87-89</a></p>
+      <div class="contact-links">
+        <a href="https://t.me/P_Kristinka" target="_blank">Telegram</a>
+        <a href="https://wa.me/79991778789" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Петровская Кристина. Все права защищены.
+  </footer>
+
+</body>
+</html>
