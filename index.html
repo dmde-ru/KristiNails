@@ -1,197 +1,440 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Петровская Кристина | Мастер ногтевого сервиса</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Петровская Кристина — Мастер ногтевого сервиса</title>
+  <meta name="description" content="Петровская Кристина — премиум маникюр. Запись: +7 999 177-87-89. Telegram: t.me/P_Kristinka" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
-      color: #eaeaea;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
+    :root{
+      --bg-1:#080808;
+      --bg-2:#141414;
+      --muted:#bdbdbd;
+      --card:#0f0f10;
+      --accent:#e8dfd6;
+      --glass: rgba(255,255,255,0.03);
+      --line: rgba(255,255,255,0.06);
+      --glow: rgba(255,200,150,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      color:var(--accent);
+      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      overflow-x:hidden;
     }
 
-    header {
-      text-align: center;
-      padding: 80px 20px 50px;
+    /* Header / nav */
+    .nav {
+      position:fixed; top:0; left:0; right:0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 28px;
+      background: linear-gradient(180deg, rgba(10,10,10,0.65), rgba(10,10,10,0.15));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+      z-index:50;
+    }
+    .brand{
+      display:flex; gap:14px; align-items:center;
+      text-decoration:none; color:var(--accent);
+    }
+    .logo{
+      width:44px; height:44px; border-radius:8px;
+      background: linear-gradient(135deg,#2b2b2b,#1a1a1a);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-weight:700; color:#fff;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.6), 0 0 18px rgba(255,255,255,0.02) inset;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .brand span{font-weight:600; letter-spacing:0.6px}
+    .nav .ctas a{
+      margin-left:10px;
+      text-decoration:none;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:0.92rem;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--accent);
+      transition: all .25s ease;
+      background:transparent;
+    }
+    .nav .ctas a:hover{
+      transform:translateY(-2px);
+      box-shadow: 0 6px 30px var(--glow);
+      color:#0a0a0a;
+      background: linear-gradient(90deg, #f7e9dd, #efe1d5);
     }
 
-    header h1 {
-      font-weight: 400;
-      font-size: 2em;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+    /* HERO */
+    .hero{
+      min-height:78vh;
+      display:flex; align-items:center;
+      justify-content:center;
+      padding:120px 20px 40px;
+      position:relative;
+      text-align:center;
     }
 
-    header p {
-      font-size: 1.1em;
-      color: #aaa;
-    }
-
-    .divider {
-      width: 80px;
-      height: 1px;
-      background: #444;
-      margin: 25px auto 40px;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 0 20px 60px;
-    }
-
-    h2 {
-      font-weight: 400;
-      border-left: 3px solid #777;
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-
-    .price-list {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 20px 25px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    .price-item {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #333;
-      padding: 10px 0;
-    }
-
-    .price-item:last-child {
-      border-bottom: none;
-    }
-
-    .extra {
-      margin-top: 25px;
-      color: #aaa;
-      font-size: 0.95em;
-    }
-
-    .gallery {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 10px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #222;
-    }
-
-    .gallery img:hover {
+    .hero__bg{
+      position:absolute; inset:0; z-index:0;
+      background: url('img/hero-blur.jpg') center/cover no-repeat;
+      filter: blur(10px) saturate(.9) brightness(.85);
       transform: scale(1.03);
-      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+      opacity:.85;
+    }
+    .hero__content{
+      position:relative; z-index:2;
+      max-width:980px;
+      padding:32px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
     }
 
-    .contacts {
-      text-align: center;
-      margin-top: 60px;
+    .kicker{
+      font-family:'Playfair Display',serif;
+      color:var(--muted);
+      letter-spacing:2px;
+      font-size:.95rem; margin-bottom:8px;
+      opacity:.95;
+    }
+    h1{
+      font-family:'Playfair Display',serif;
+      margin: 6px 0 14px;
+      font-size:clamp(28px,4vw,44px);
+      letter-spacing:1px;
+      color:var(--accent);
+      font-weight:700;
+    }
+    p.lead{
+      color:var(--muted);
+      margin:0 0 20px;
+      font-size:1.05rem;
     }
 
-    .contacts p {
-      margin: 8px 0;
+    .hero-ctas{ display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap}
+    .btn{
+      padding:12px 18px; border-radius:28px; text-decoration:none;
+      font-weight:600; font-size:0.96rem;
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,0.06);
+      background:transparent; color:var(--accent);
+      transition: all .22s ease;
+    }
+    .btn--primary{
+      background: linear-gradient(90deg,#f7e1d3,#efe1d5);
+      color:#0b0b0b; box-shadow:0 18px 40px rgba(0,0,0,0.6);
+    }
+    .btn--ghost:hover{ transform:translateY(-3px); box-shadow:0 12px 36px rgba(0,0,0,0.6); }
+    .btn--primary:hover{ transform:translateY(-3px); box-shadow:0 28px 60px rgba(0,0,0,0.6); }
+
+    /* ribbon / features */
+    .ribbon{
+      display:flex; gap:18px; justify-content:center; margin-top:22px;
+      color:var(--muted); font-size:0.95rem;
     }
 
-    .contact-links a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      border-radius: 30px;
-      border: 1px solid #444;
-      color: #eaeaea;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 0.95em;
+    /* content sections */
+    main{position:relative; z-index:1}
+    section.block{max-width:1100px; margin:60px auto; padding:0 20px}
+    .two-col{display:grid; grid-template-columns: 1fr 420px; gap:32px; align-items:start}
+    .card{
+      background:var(--glass); border-radius:12px; padding:22px;
+      border:1px solid var(--line);
     }
 
-    .contact-links a:hover {
-      background: #eaeaea;
-      color: #0a0a0a;
-      border-color: #eaeaea;
+    /* Gallery */
+    .gallery{
+      display:grid; gap:12px;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    }
+    .gallery .item{
+      position:relative; overflow:hidden; border-radius:10px;
+      border:1px solid rgba(255,255,255,0.035);
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.12));
+      cursor:zoom-in;
+    }
+    .gallery img{
+      width:100%; height:100%; display:block; object-fit:cover; transition:transform .45s ease;
+    }
+    .gallery .item:hover img{ transform:scale(1.06) rotate(.6deg); }
+
+    /* price table style */
+    .price-table{
+      width:100%; border-collapse:collapse; margin-top:8px;
+      color:var(--accent);
+    }
+    .price-table td, .price-table th{
+      padding:18px 14px; vertical-align:middle;
+    }
+    .price-table .name{ font-size:1.05rem; color:var(--accent) }
+    .price-table .price{ text-align:right; font-weight:600; font-size:1.05rem; color:var(--muted) }
+
+    /* stylish lines with endings (like originals) */
+    .fancy-table{
+      border: 1px solid rgba(255,255,255,0.06);
+      position:relative; border-radius:10px; overflow:visible;
+    }
+    .fancy-table:before, .fancy-table:after{
+      content:''; position:absolute; left:12px; right:12px; height:1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+    }
+    .fancy-table:before{ top:0; transform:translateY(-12px); }
+    .fancy-table:after{ bottom:0; transform:translateY(12px); }
+
+    .line-end{
+      width:12px;height:12px;border-radius:2px;background:transparent;
+      border:1px solid rgba(255,255,255,0.06); display:inline-block;
+      transform: rotate(45deg); margin-right:8px;
     }
 
-    footer {
-      text-align: center;
-      font-size: 0.85em;
-      color: #777;
-      padding: 30px;
-      border-top: 1px solid #222;
-      background: #0a0a0a;
+    /* contacts */
+    .contacts{ text-align:center; margin-top:18px; }
+    .socials{ display:flex; gap:12px; justify-content:center; margin-top:12px }
+    .social{
+      padding:10px 18px; border-radius:999px; border:1px solid rgba(255,255,255,0.06);
+      background:transparent; color:var(--accent); text-decoration:none; font-weight:600;
+      transition: all .22s ease;
+    }
+    .social:hover{ transform:translateY(-4px); box-shadow: 0 18px 40px var(--glow); color:#0b0b0b; background: linear-gradient(90deg,#f7e1d3,#efe1d5); }
+
+    /* footer */
+    footer{ padding:40px 20px; text-align:center; color:var(--muted); font-size:0.95rem; border-top:1px solid rgba(255,255,255,0.03); margin-top:40px }
+
+    /* modal lightbox */
+    .lightbox{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:150;
+      background: rgba(5,5,5,0.8);
+    }
+    .lightbox img{ max-width:92%; max-height:86%; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.8) }
+    .lightbox.active{ display:flex }
+
+    /* responsive */
+    @media (max-width:1000px){ .two-col{grid-template-columns: 1fr} .hero{padding-top:100px;} }
+    @media (max-width:520px){
+      .nav{padding:10px 14px}
+      .brand span{display:none}
+      .hero{padding:90px 12px 30px}
+      .hero__content{padding:18px}
+      .kicker{font-size:.85rem}
+      .ribbon{flex-direction:column; gap:6px}
     }
 
-    @media (max-width: 600px) {
-      .price-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .price-item span:last-child {
-        margin-top: 4px;
-        color: #ccc;
-      }
-    }
+    /* Subtle entrance animations */
+    .reveal{opacity:0; transform:translateY(8px); transition: all .65s cubic-bezier(.2,.9,.2,1); will-change:transform,opacity}
+    .reveal.visible{opacity:1; transform:none}
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Петровская Кристина</h1>
-    <p>Мастер ногтевого сервиса</p>
-    <div class="divider"></div>
-  </header>
-
-  <section>
-    <h2>Прайс-лист</h2>
-    <div class="price-list">
-      <div class="price-item"><span>Маникюр</span><span>500 ₽</span></div>
-      <div class="price-item"><span>Маникюр + покрытие</span><span>1500 ₽</span></div>
-      <div class="price-item"><span>Чужое снятие</span><span>200 ₽</span></div>
+  <nav class="nav">
+    <a class="brand" href="#hero">
+      <div class="logo">PK</div>
+      <span>Петровская Кристина</span>
+    </a>
+    <div class="ctas">
+      <a class="btn" href="#gallery">Галерея</a>
+      <a class="btn" href="#price">Прайс</a>
+      <a class="btn" href="#contacts">Контакты</a>
     </div>
+  </nav>
 
-    <div class="extra">
-      <p>Возможен выезд на дом (обговаривается отдельно)</p>
-      <p>(микрорайон Мирный)</p>
-    </div>
+  <header id="hero" class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
 
-    <h2>Примеры работ</h2>
-    <div class="gallery">
-      <img src="img/work1.jpg" alt="Пример работы 1">
-      <img src="img/work2.jpg" alt="Пример работы 2">
-      <img src="img/work3.jpg" alt="Пример работы 3">
-      <img src="img/work4.jpg" alt="Пример работы 4">
-      <img src="img/work5.jpg" alt="Пример работы 5">
-      <img src="img/work6.jpg" alt="Пример работы 6">
-    </div>
+    <div class="hero__content reveal" style="--delay:0s">
+      <div class="kicker">PREMIUM NAIL SERVICE</div>
+      <h1>Совершенство в каждой линии</h1>
+      <p class="lead">Маникюр — это не просто покрытие. Это маленькое произведение искусства, которое делает вас увереннее.</p>
 
-    <div class="contacts">
-      <h2>Записаться</h2>
-      <p>Телефон: <a href="tel:+79991778789" style="color:#eaeaea;">+7 999 177-87-89</a></p>
-      <div class="contact-links">
-        <a href="https://t.me/P_Kristinka" target="_blank">Telegram</a>
-        <a href="https://wa.me/79991778789" target="_blank">WhatsApp</a>
+      <div class="hero-ctas">
+        <a class="btn btn--primary" href="https://t.me/P_Kristinka" target="_blank" rel="noopener">
+          Записаться в Telegram
+        </a>
+        <a class="btn btn--ghost" href="https://wa.me/79991778789" target="_blank" rel="noopener">
+          Написать в WhatsApp
+        </a>
+      </div>
+
+      <div class="ribbon" role="list" aria-hidden="true">
+        <div>🎯 Точность &nbsp; • &nbsp;  💎 &nbsp; Индивидуальный дизайн &nbsp; • &nbsp; 🚗 &nbsp; Выезд по Мирному</div>
       </div>
     </div>
-  </section>
+  </header>
+
+  <main>
+    <section class="block reveal" id="about" style="--delay:.08s">
+      <div class="two-col">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif; margin-top:6px">Искусство. Аккуратность. Уход.</h2>
+          <p style="color:var(--muted); margin-top:6px">
+            Петровская Кристина — мастер ногтевого сервиса с бережным подходом к ногтю и коже.
+            Здесь каждая форма тщательно выверена, каждый цвет подобран под вашу индивидуальность.
+          </p>
+
+          <div style="margin-top:18px" class="card">
+            <p style="margin:0 0 8px; color:var(--muted)"><strong>Почему клиенты возвращаются:</strong></p>
+            <ul style="margin:0; padding-left:18px; color:var(--muted)">
+              <li>Деликатная подготовка и безупречное исполнение</li>
+              <li>Стерильность и профессиональная косметика</li>
+              <li>Гибкие варианты записи и выезд на дом</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside class="card" aria-labelledby="price">
+          <h3 id="price" style="margin-top:0; font-family:'Playfair Display',serif">Прайс-лист</h3>
+
+          <div class="fancy-table" style="padding:0 12px 12px 12px; margin-top:12px;">
+            <table class="price-table" role="table" aria-label="Прайс-лист">
+              <tbody>
+                <tr>
+                  <td class="name">Маникюр</td>
+                  <td class="price">500 р</td>
+                </tr>
+                <tr style="border-top:1px solid rgba(255,255,255,0.02)">
+                  <td class="name">Маникюр + покрытие</td>
+                  <td class="price">1500 р</td>
+                </tr>
+                <tr style="border-top:1px solid rgba(255,255,255,0.02)">
+                  <td class="name">Чужое снятие</td>
+                  <td class="price">200 р</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="color:var(--muted); margin-top:14px; font-size:0.95rem">
+            Возможен выезд на дом (обговаривается отдельно)&nbsp;<br><span style="opacity:.9">(микрорайон Мирный)</span>
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block reveal" id="gallery" style="--delay:.16s">
+      <h2 style="font-family:'Playfair Display',serif">Примеры работ</h2>
+      <p style="color:var(--muted)">Несколько заявок — чтобы почувствовать стиль. Нажмите для увеличения.</p>
+
+      <div class="gallery" style="margin-top:14px">
+        <!-- Подкинул 6 мест для картинок; замени имена файлов на свои -->
+        <div class="item"><img src="img/work1.jpg" alt="Работа 1 — маникюр" loading="lazy"></div>
+        <div class="item"><img src="img/work2.jpg" alt="Работа 2 — френч" loading="lazy"></div>
+        <div class="item"><img src="img/work3.jpg" alt="Работа 3 — нюд" loading="lazy"></div>
+        <div class="item"><img src="img/work4.jpg" alt="Работа 4 — дизайн" loading="lazy"></div>
+        <div class="item"><img src="img/work5.jpg" alt="Работа 5 — однотонное" loading="lazy"></div>
+        <div class="item"><img src="img/work6.jpg" alt="Работа 6 — акцент" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="block reveal" id="cta" style="--delay:.24s">
+      <div class="card" style="text-align:center;">
+        <h2 style="font-family:'Playfair Display',serif; margin-bottom:6px">Готовы к переменам?</h2>
+        <p style="color:var(--muted); margin-bottom:18px">Запишитесь — и ваши руки скажут о вас больше, чем слова.</p>
+
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+          <a class="btn btn--primary" href="https://t.me/P_Kristinka" target="_blank" rel="noopener">Записаться в Telegram</a>
+          <a class="btn btn--ghost" href="https://wa.me/79991778789" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        </div>
+
+        <div class="contacts" id="contacts" style="margin-top:18px">
+          <p style="margin:6px 0">Телефон: <a style="color:var(--accent); text-decoration:none" href="tel:+79991778789">+7 999 177-87-89</a></p>
+
+          <div class="socials" aria-hidden="false">
+            <a class="social" href="https://t.me/P_Kristinka" target="_blank" rel="noopener">Telegram</a>
+            <a class="social" href="https://wa.me/79991778789" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    © 2025 Петровская Кристина. Все права защищены.
+    <div style="max-width:900px;margin:0 auto">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <div style="text-align:left">
+          <div style="font-weight:600">Петровская Кристина</div>
+          <div style="color:var(--muted)">Мастер ногтевого сервиса</div>
+        </div>
+
+        <div style="text-align:right; color:var(--muted)">
+          © <span id="year"></span> Все права защищены.
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    // small utilities: reveal on scroll
+    (function(){
+      const revealElems = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, {threshold:0.12});
+      revealElems.forEach(el=>obs.observe(el));
+    })();
+
+    // lightbox for gallery
+    (function(){
+      const items = document.querySelectorAll('.gallery .item img');
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      items.forEach(img=>{
+        img.addEventListener('click', (e)=>{
+          lbImg.src = img.src;
+          lbImg.alt = img.alt || '';
+          lb.classList.add('active');
+          lb.setAttribute('aria-hidden','false');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      lb.addEventListener('click', ()=>{
+        lb.classList.remove('active');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      });
+      document.addEventListener('keydown', e=>{
+        if(e.key === 'Escape' && lb.classList.contains('active')){
+          lb.classList.remove('active');
+          lb.setAttribute('aria-hidden','true');
+          lbImg.src = '';
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // smooth anchor scroll
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){
+          const href = this.getAttribute('href');
+          if(href.length>1){
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
-
