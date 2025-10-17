@@ -12,12 +12,28 @@ body{
   font-family:"Manrope",system-ui,sans-serif;
   background:#090909;color:#f5f5f5;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  scroll-snap-type:y mandatory;
+  position:relative;
 }
+
+/* === Animated & interactive background === */
+#lights{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(800px circle at 30% 30%,rgba(250,220,200,.08),transparent 60%),
+             radial-gradient(600px circle at 80% 70%,rgba(180,200,255,.07),transparent 60%),
+             radial-gradient(900px circle at 60% 40%,rgba(255,180,220,.08),transparent 60%);
+  background-blend-mode:screen;
+  filter:blur(40px);
+  transition:background-position 0.2s ease;
+}
+
+/* === Basic theme === */
 :root{
   --accent:#f0e2d8;--muted:#9b9b9b;--glass:rgba(255,255,255,.05);
   --line:rgba(255,255,255,.1);
 }
-section{width:100%;max-width:1200px;margin:auto;padding:clamp(60px,8vw,120px)5%;position:relative;overflow:hidden}
+section{width:100%;max-width:1200px;margin:auto;padding:clamp(60px,8vw,120px)5%;
+  position:relative;overflow:hidden;scroll-snap-align:start}
 h1,h2{font-family:"Playfair Display",serif;font-weight:600;letter-spacing:.3px}
 h1{font-size:clamp(2rem,6vw,3.5rem);margin-bottom:1rem}
 h2{font-size:clamp(1.5rem,4vw,2.2rem);margin-bottom:.6rem}
@@ -34,6 +50,7 @@ a{text-decoration:none;color:inherit}
   background:url("img/hero.jpg")center/cover no-repeat;
   filter:brightness(.45);transform:scale(1.1);
   animation:zoom 25s ease-in-out infinite alternate;
+  z-index:-1;
 }
 @keyframes zoom{0%{transform:scale(1.05)}100%{transform:scale(1.2)}}
 .hero__content{
@@ -66,10 +83,22 @@ a{text-decoration:none;color:inherit}
   transform:translateY(0) scale(1);opacity:1;
 }
 
-/* ---------- GALLERY ---------- */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:2rem}
-.gallery img{width:100%;border-radius:14px;object-fit:cover;transition:transform .6s ease,box-shadow .6s ease;aspect-ratio:1/1.3;cursor:pointer}
-.gallery img:hover{transform:scale(1.06) rotate(.4deg);box-shadow:0 0 30px rgba(255,255,255,.08)}
+/* ---------- WHY BLOCK ---------- */
+.why-list{
+  text-align:left;margin-top:2rem;display:inline-block;
+  background:var(--glass);border:1px solid var(--line);border-radius:16px;
+  padding:1.8rem 2rem;backdrop-filter:blur(8px);
+}
+.why-list li{
+  list-style:none;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);
+  color:var(--muted);font-size:1rem;position:relative;padding-left:1.4rem;
+}
+.why-list li::before{content:"•";position:absolute;left:0;color:var(--accent);}
+
+/* ---------- GALLERY (auto-slider) ---------- */
+.gallery{position:relative;width:100%;max-width:900px;margin:2rem auto;overflow:hidden;border-radius:14px}
+.gallery-track{display:flex;transition:transform 1s ease}
+.gallery img{width:100%;flex-shrink:0;object-fit:cover;aspect-ratio:16/10;border-radius:14px}
 
 /* ---------- PRICE ---------- */
 .price{background:radial-gradient(circle at top,rgba(255,255,255,.05),transparent 70%);
@@ -92,13 +121,19 @@ a{text-decoration:none;color:inherit}
 footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2rem;
   border-top:1px solid rgba(255,255,255,.05)}
 
-/* ---------- PARALLAX ---------- */
-.parallax-bg{
-  position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(circle at center,rgba(255,255,255,.05),transparent 80%);
-  opacity:.1;transform:translateY(0);transition:transform 1s ease;
+/* ---------- POPUP ---------- */
+.popup{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  display:none;align-items:center;justify-content:center;z-index:100;
 }
-.scroll-section.visible .parallax-bg{transform:translateY(-20px)}
+.popup.active{display:flex}
+.popup-content{
+  background:#111;padding:2rem 2.4rem;border-radius:16px;
+  max-width:320px;text-align:center;box-shadow:0 0 40px rgba(0,0,0,.8);
+  border:1px solid rgba(255,255,255,.08);
+}
+.popup-content h3{font-family:"Playfair Display",serif;margin-bottom:1rem}
+.close-btn{margin-top:1.5rem;cursor:pointer;color:var(--accent);font-weight:600}
 
 @media(max-width:600px){
   .hero__content{padding:1.4rem}.btn{width:100%;justify-content:center}
@@ -107,41 +142,51 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2r
 </head>
 <body>
 
+<!-- Interactive gradient layer -->
+<div id="lights"></div>
+
 <section class="hero">
   <div class="hero__content">
     <div class="hero__subtitle">Премиум маникюр</div>
     <h1>Совершенство, созданное в движении</h1>
     <p>Каждый штрих — уверенность. Каждое касание — внимание к деталям. Почувствуйте роскошь с кончиков пальцев.</p>
     <div class="hero__buttons">
-      <a href="https://t.me/P_Kristinka" class="btn btn--light" target="_blank">Записаться</a>
+      <button class="btn btn--light" id="openPopup">Записаться</button>
       <a href="https://wa.me/79991778789" class="btn btn--dark" target="_blank">WhatsApp</a>
     </div>
   </div>
 </section>
 
 <section class="scroll-section">
-  <div class="parallax-bg"></div>
   <div class="content">
-    <h2>Каждая деталь имеет значение</h2>
-    <p>Премиум-подход, стерильность, точность и стиль. Это не просто уход, это искусство, которое отражает вашу индивидуальность.</p>
+    <h2>Почему клиенты возвращаются</h2>
+    <ul class="why-list">
+      <li>Деликатная подготовка и безупречное исполнение</li>
+      <li>Стерильность и профессиональная косметика</li>
+      <li>Гибкие варианты записи и выезд на дом</li>
+      <li>Ненавязчивый и остроумный собеседник на все случаи жизни</li>
+      <li>Демократичные цены за длительную носку</li>
+    </ul>
   </div>
 </section>
 
 <section class="scroll-section">
-  <div class="parallax-bg"></div>
   <div class="content">
     <h2>Галерея</h2>
-    <p>Живые работы, где дизайн и аккуратность становятся одной линией.</p>
     <div class="gallery">
-      <img src="img/work1.jpg" alt=""><img src="img/work2.jpg" alt="">
-      <img src="img/work3.jpg" alt=""><img src="img/work4.jpg" alt="">
-      <img src="img/work5.jpg" alt=""><img src="img/work6.jpg" alt="">
+      <div class="gallery-track" id="galleryTrack">
+        <img src="img/work1.jpg" alt="">
+        <img src="img/work2.jpg" alt="">
+        <img src="img/work3.jpg" alt="">
+        <img src="img/work4.jpg" alt="">
+        <img src="img/work5.jpg" alt="">
+        <img src="img/work6.jpg" alt="">
+      </div>
     </div>
   </div>
 </section>
 
 <section class="scroll-section">
-  <div class="parallax-bg"></div>
   <div class="content">
     <h2>Прайс-лист</h2>
     <div class="price">
@@ -156,7 +201,6 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2r
 </section>
 
 <section class="scroll-section">
-  <div class="parallax-bg"></div>
   <div class="content contacts" id="contacts">
     <h2>Контакты</h2>
     <p>Телефон: <a href="tel:+79991778789">+7 999 177-87-89</a></p>
@@ -169,15 +213,56 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2r
 
 <footer>© <span id="year"></span> Петровская Кристина · Мастер ногтевого сервиса</footer>
 
+<!-- Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h3>Записаться на маникюр</h3>
+    <p>Выберите удобный способ связи:</p>
+    <div class="socials" style="margin-top:1.2rem">
+      <a class="social" href="https://t.me/P_Kristinka" target="_blank">Telegram</a>
+      <a class="social" href="https://wa.me/79991778789" target="_blank">WhatsApp</a>
+    </div>
+    <div class="close-btn" id="closePopup">Закрыть</div>
+  </div>
+</div>
+
 <script>
+// reveal animation
 const sections=document.querySelectorAll('.scroll-section');
 const io=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');}
-  });
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
 },{threshold:.2});
 sections.forEach(s=>io.observe(s));
+
+// auto slider
+const track=document.getElementById('galleryTrack');
+let index=0;
+setInterval(()=>{index=(index+1)%track.children.length;
+  track.style.transform=`translateX(-${index*100}%)`;
+},4000);
+
+// popup logic
+const popup=document.getElementById('popup');
+document.getElementById('openPopup').onclick=()=>popup.classList.add('active');
+document.getElementById('closePopup').onclick=()=>popup.classList.remove('active');
+popup.addEventListener('click',e=>{if(e.target===popup)popup.classList.remove('active');});
 document.getElementById('year').textContent=new Date().getFullYear();
+
+// interactive lights
+const lights=document.getElementById('lights');
+function moveLights(x,y){
+  const percentX=(x/window.innerWidth)*100;
+  const percentY=(y/window.innerHeight)*100;
+  lights.style.backgroundPosition=
+    `${percentX/2+20}% ${percentY/2+20}%, 
+     ${percentX+40}% ${percentY+60}%, 
+     ${percentX+10}% ${percentY+10}%`;
+}
+window.addEventListener('mousemove',e=>moveLights(e.clientX,e.clientY));
+window.addEventListener('touchmove',e=>{
+  const t=e.touches[0];
+  if(t) moveLights(t.clientX,t.clientY);
+});
 </script>
 </body>
 </html>
