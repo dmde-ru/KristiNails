@@ -19,21 +19,25 @@ body{
 /* === Animated & interactive background === */
 #lights{
   position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background:radial-gradient(800px circle at 30% 30%,rgba(250,220,200,.08),transparent 60%),
-             radial-gradient(600px circle at 80% 70%,rgba(180,200,255,.07),transparent 60%),
-             radial-gradient(900px circle at 60% 40%,rgba(255,180,220,.08),transparent 60%);
+  background:
+    radial-gradient(800px circle at 40% 40%,rgba(250,220,200,.08),transparent 60%),
+    radial-gradient(600px circle at 80% 60%,rgba(180,200,255,.07),transparent 60%),
+    radial-gradient(900px circle at 60% 30%,rgba(255,180,220,.08),transparent 60%);
   background-blend-mode:screen;
   filter:blur(40px);
-  transition:background-position 0.2s ease;
+  transition:background-position 0.1s linear;
 }
 
 /* === Basic theme === */
 :root{
-  --accent:#f0e2d8;--muted:#9b9b9b;--glass:rgba(255,255,255,.05);
+  --accent:#f0e2d8;--muted:#b3b3b3;--glass:rgba(255,255,255,.05);
   --line:rgba(255,255,255,.1);
 }
-section{width:100%;max-width:1200px;margin:auto;padding:clamp(60px,8vw,120px)5%;
-  position:relative;overflow:hidden;scroll-snap-align:start}
+section{
+  width:100%;max-width:1200px;margin:auto;
+  padding:clamp(40px,6vw,80px) 5%; /* короче расстояние между блоками */
+  position:relative;overflow:hidden;scroll-snap-align:start;
+}
 h1,h2{font-family:"Playfair Display",serif;font-weight:600;letter-spacing:.3px}
 h1{font-size:clamp(2rem,6vw,3.5rem);margin-bottom:1rem}
 h2{font-size:clamp(1.5rem,4vw,2.2rem);margin-bottom:.6rem}
@@ -54,16 +58,16 @@ a{text-decoration:none;color:inherit}
 }
 @keyframes zoom{0%{transform:scale(1.05)}100%{transform:scale(1.2)}}
 .hero__content{
-  position:relative;z-index:2;padding:2rem;
+  position:relative;z-index:2;padding:1.6rem 2rem;
   background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.08);border-radius:20px;
   backdrop-filter:blur(10px);box-shadow:0 0 60px rgba(0,0,0,.6);
   max-width:650px;animation:fadeUp 1.5s ease forwards;
 }
 @keyframes fadeUp{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
-.hero__subtitle{font-size:.95rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem}
-.hero__buttons{display:flex;justify-content:center;gap:1rem;margin-top:2rem;flex-wrap:wrap}
-.btn{padding:.8rem 1.8rem;border-radius:40px;font-weight:600;
+.hero__subtitle{font-size:.9rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem}
+.hero__buttons{display:flex;justify-content:center;gap:.8rem;margin-top:1.4rem;flex-wrap:wrap}
+.btn{padding:.8rem 1.6rem;border-radius:40px;font-weight:600;
   border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(6px);transition:all .3s ease}
 .btn--light{background:linear-gradient(90deg,#f2e4d8,#e8d9cf);color:#111}
 .btn--light:hover{box-shadow:0 0 25px rgba(240,220,210,.35);transform:translateY(-2px)}
@@ -72,7 +76,7 @@ a{text-decoration:none;color:inherit}
 
 /* ---------- Scroll Sections ---------- */
 .scroll-section{
-  position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;
   text-align:center;perspective:1000px;
 }
 .scroll-section .content{
@@ -85,40 +89,42 @@ a{text-decoration:none;color:inherit}
 
 /* ---------- WHY BLOCK ---------- */
 .why-list{
-  text-align:left;margin-top:2rem;display:inline-block;
+  text-align:left;margin-top:1.4rem;display:inline-block;
   background:var(--glass);border:1px solid var(--line);border-radius:16px;
-  padding:1.8rem 2rem;backdrop-filter:blur(8px);
+  padding:1.4rem 1.8rem;backdrop-filter:blur(8px);
 }
 .why-list li{
   list-style:none;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);
-  color:var(--muted);font-size:1rem;position:relative;padding-left:1.4rem;
+  color:var(--muted);font-size:1rem;position:relative;padding-left:1.2rem;
 }
 .why-list li::before{content:"•";position:absolute;left:0;color:var(--accent);}
 
 /* ---------- GALLERY (auto-slider) ---------- */
-.gallery{position:relative;width:100%;max-width:900px;margin:2rem auto;overflow:hidden;border-radius:14px}
+.gallery{position:relative;width:100%;max-width:900px;margin:1.6rem auto;overflow:hidden;border-radius:14px}
 .gallery-track{display:flex;transition:transform 1s ease}
 .gallery img{width:100%;flex-shrink:0;object-fit:cover;aspect-ratio:16/10;border-radius:14px}
 
 /* ---------- PRICE ---------- */
-.price{background:radial-gradient(circle at top,rgba(255,255,255,.05),transparent 70%);
-  border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.08);
-  max-width:700px;margin:3rem auto}
-.price table{width:100%;border-collapse:collapse;margin-top:1rem}
-.price td{padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.price{
+  background:radial-gradient(circle at top,rgba(255,255,255,.05),transparent 70%);
+  border-radius:20px;padding:1.6rem;border:1px solid rgba(255,255,255,.08);
+  max-width:700px;margin:2rem auto;
+}
+.price table{width:100%;border-collapse:collapse;margin-top:.6rem}
+.price td{padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .price td:last-child{text-align:right;color:var(--muted)}
-.price p{text-align:center;font-size:.95rem;margin-top:1rem;color:var(--muted)}
+.price p{text-align:center;font-size:.95rem;margin-top:.8rem;color:var(--muted)}
 
 /* ---------- CONTACTS ---------- */
-.contacts{text-align:center;padding-top:3rem}
-.socials{display:flex;justify-content:center;gap:1rem;margin-top:1rem;flex-wrap:wrap}
-.social{padding:.8rem 1.5rem;border-radius:999px;border:1px solid rgba(255,255,255,.08);
+.contacts{text-align:center;padding-top:2rem}
+.socials{display:flex;justify-content:center;gap:.8rem;margin-top:1rem;flex-wrap:wrap}
+.social{padding:.7rem 1.4rem;border-radius:999px;border:1px solid rgba(255,255,255,.08);
   color:var(--accent);transition:all .3s ease}
 .social:hover{background:linear-gradient(90deg,#f2e4d8,#e8d9cf);color:#111;
   box-shadow:0 0 30px rgba(255,255,255,.08)}
 
 /* ---------- FOOTER ---------- */
-footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2rem;
+footer{text-align:center;color:var(--muted);font-size:.9rem;padding:2rem 1rem;
   border-top:1px solid rgba(255,255,255,.05)}
 
 /* ---------- POPUP ---------- */
@@ -133,16 +139,15 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2r
   border:1px solid rgba(255,255,255,.08);
 }
 .popup-content h3{font-family:"Playfair Display",serif;margin-bottom:1rem}
-.close-btn{margin-top:1.5rem;cursor:pointer;color:var(--accent);font-weight:600}
+.close-btn{margin-top:1.2rem;cursor:pointer;color:var(--accent);font-weight:600}
 
 @media(max-width:600px){
-  .hero__content{padding:1.4rem}.btn{width:100%;justify-content:center}
+  .hero__content{padding:1.2rem}.btn{width:100%;justify-content:center}
 }
 </style>
 </head>
 <body>
 
-<!-- Interactive gradient layer -->
 <div id="lights"></div>
 
 <section class="hero">
@@ -213,12 +218,11 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:3rem 1rem 2r
 
 <footer>© <span id="year"></span> Петровская Кристина · Мастер ногтевого сервиса</footer>
 
-<!-- Popup -->
 <div class="popup" id="popup">
   <div class="popup-content">
     <h3>Записаться на маникюр</h3>
     <p>Выберите удобный способ связи:</p>
-    <div class="socials" style="margin-top:1.2rem">
+    <div class="socials" style="margin-top:1rem">
       <a class="social" href="https://t.me/P_Kristinka" target="_blank">Telegram</a>
       <a class="social" href="https://wa.me/79991778789" target="_blank">WhatsApp</a>
     </div>
@@ -237,7 +241,8 @@ sections.forEach(s=>io.observe(s));
 // auto slider
 const track=document.getElementById('galleryTrack');
 let index=0;
-setInterval(()=>{index=(index+1)%track.children.length;
+setInterval(()=>{
+  index=(index+1)%track.children.length;
   track.style.transform=`translateX(-${index*100}%)`;
 },4000);
 
@@ -248,21 +253,20 @@ document.getElementById('closePopup').onclick=()=>popup.classList.remove('active
 popup.addEventListener('click',e=>{if(e.target===popup)popup.classList.remove('active');});
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// interactive lights
+// interactive lights fixed
 const lights=document.getElementById('lights');
+let lx=40,ly=40;
 function moveLights(x,y){
-  const percentX=(x/window.innerWidth)*100;
-  const percentY=(y/window.innerHeight)*100;
+  lx=x/window.innerWidth*100;
+  ly=y/window.innerHeight*100;
   lights.style.backgroundPosition=
-    `${percentX/2+20}% ${percentY/2+20}%, 
-     ${percentX+40}% ${percentY+60}%, 
-     ${percentX+10}% ${percentY+10}%`;
+    `${lx/2+20}% ${ly/2+20}%, ${lx+30}% ${ly+50}%, ${lx-10}% ${ly-20}%`;
 }
 window.addEventListener('mousemove',e=>moveLights(e.clientX,e.clientY));
 window.addEventListener('touchmove',e=>{
   const t=e.touches[0];
   if(t) moveLights(t.clientX,t.clientY);
-});
+},{passive:true});
 </script>
 </body>
 </html>
