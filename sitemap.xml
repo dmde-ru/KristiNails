@@ -5,4 +5,16 @@
     <lastmod>2025-10-18</lastmod>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://dmde-ru.github.io/KristiNails/#gallery</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dmde-ru.github.io/KristiNails/#price</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dmde-ru.github.io/KristiNails/#contacts</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>
