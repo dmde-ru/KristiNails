@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://dmde-ru.github.io/KristiNails/sitemap.xml
+
+Sitemap: https://kristinails.art/sitemap.xml
