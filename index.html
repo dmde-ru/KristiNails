@@ -182,55 +182,97 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding:2rem 1rem;
   .hero__content{padding:1.2rem}.btn{width:100%;justify-content:center}
 }
   
-/* === ABOUT POPUP === */
+/* === ABOUT POPUP (с затемнением фона) === */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.popup.active .popup-overlay {
+  opacity: 1;
+}
+
 .about-content {
+  position: relative;
+  z-index: 10;
   max-width: 420px;
-  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  background: rgba(30,30,30,0.8);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 18px;
   padding: 2rem 1.6rem;
   text-align: left;
   backdrop-filter: blur(12px);
   box-shadow: 0 0 35px rgba(0,0,0,.6);
-  opacity: 0;
   transform: scale(0.8);
-  transition: opacity .4s ease, transform .4s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+  transition: transform .4s cubic-bezier(0.22,1,0.36,1), opacity .4s ease;
 }
 .popup.active .about-content {
-  opacity: 1;
   transform: scale(1);
+  opacity: 1;
 }
+
 .about-content h3 {
-  text-align:center;
-  font-family:"Playfair Display",serif;
-  margin-bottom:1rem;
-  font-size:1.4rem;
-  color:#f3f3f3;
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #f3f3f3;
 }
 .about-content p {
-  color:var(--muted);
-  line-height:1.6;
-  margin-bottom:0.8rem;
-  font-size:1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
 }
 .about-content a {
-  color:var(--accent);
-  text-decoration:underline;
+  color: var(--accent);
+  text-decoration: underline;
 }
 .about-note {
-  font-style:italic;
-  color:#d8d8d8;
-  text-align:center;
-  margin-top:1.2rem;
+  font-style: italic;
+  color: #d8d8d8;
+  text-align: center;
+  margin-top: 1.2rem;
+}
+.close-btn {
+  text-align: center;
+  margin-top: 1.4rem;
+  color: #ccc;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color .2s ease;
+}
+.close-btn:hover {
+  color: #fff;
 }
 @media(max-width:600px){
   .about-content {
-    width:90%;
-    padding:1.6rem 1.2rem;
-    font-size:.95rem;
+    width: 90%;
+    padding: 1.6rem 1.2rem;
+    font-size: .95rem;
   }
   .about-content h3 {
-    font-size:1.2rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -381,26 +423,27 @@ window.addEventListener('touchmove',e=>{
   if(t) moveLights(t.clientX,t.clientY);
 },{passive:true});
   
-// === About popup ===
+// === ABOUT popup with dark overlay ===
 const aboutPopup = document.getElementById('aboutPopup');
+const aboutOverlay = aboutPopup.querySelector('.popup-overlay');
+
 document.getElementById('openAbout').onclick = () => {
   aboutPopup.classList.add('active');
-  document.body.style.overflow = 'hidden'; // блокируем прокрутку под окном
+  document.body.style.overflow = 'hidden'; // блок прокрутки
 };
 document.getElementById('closeAbout').onclick = () => {
   aboutPopup.classList.remove('active');
-  document.body.style.overflow = ''; // возвращаем прокрутку
+  document.body.style.overflow = '';
 };
-aboutPopup.addEventListener('click', e => {
-  if (e.target === aboutPopup) {
-    aboutPopup.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+aboutOverlay.addEventListener('click', () => {
+  aboutPopup.classList.remove('active');
+  document.body.style.overflow = '';
 });
 
 </script>
 </body>
 </html>
+
 
 
 
